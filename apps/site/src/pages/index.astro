@@ -1,0 +1,669 @@
+---
+import CopyCode from '../components/CopyCode.astro';
+import InstallCommand from '../components/InstallCommand.astro';
+import Base from '../layouts/Base.astro';
+import { FEEDBACK_MESSAGE_MAX, FEEDBACK_TYPES } from '../lib/feedback';
+import { ROADMAP, STAGE_LABEL } from '../lib/roadmap';
+
+const features = [
+    {
+        title: 'Notes both ways',
+        text: 'Say what went wrong on each check, or leave a note for the agent on the whole session. The agent can pin a short message at the top.',
+    },
+    {
+        title: 'Add your own checks',
+        text: 'Spotted something else? Add it from any device: the agent reads it as a request with your review.',
+    },
+    {
+        title: 'Share with other people',
+        text: 'Give a client, a colleague or a friend a copy of a checklist to check on their own device: no account, nothing to install, and they never see your computer. You see their answers next to yours.',
+    },
+    {
+        title: 'Live on every device',
+        text: 'Phone, tablet and browser stay in sync. Reviews made offline are sent when you are back online.',
+    },
+    {
+        title: 'End-to-end encrypted',
+        text: "Checklists are encrypted between your computer and your devices: the relay forwards data it can't read. Each device has its own key, which never leaves it.",
+    },
+    {
+        title: 'Agent control',
+        text: "Approve the agent's plan, read its diff and close a session from your devices, without going back to the chat.",
+        soon: true,
+    },
+];
+---
+
+<Base
+    title="PalmtopAI: the missing checklist for AI coding"
+    description="The missing checklist for AI coding: your agent lists what to verify, you mark what works, it fixes the rest. End-to-end encrypted, open source."
+>
+    <script src="../scripts/home.ts"></script>
+
+    <section
+        class="grid items-center gap-16 pt-12 pb-10 md:grid-cols-[1.2fr_1fr] md:pt-24 md:pb-16 lg:gap-20"
+    >
+        <div class="min-w-0">
+            <p
+                class="motion-safe:animate-rise mb-4 text-xs font-semibold tracking-widest text-emerald-600 uppercase dark:text-emerald-400"
+            >
+                The missing checklist for AI coding
+            </p>
+            <h1
+                class="motion-safe:animate-rise text-4xl font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl"
+            >
+                Nothing your agent builds should go unchecked.
+            </h1>
+            <p
+                class="motion-safe:animate-rise mt-5 max-w-xl text-lg text-pretty text-zinc-600 motion-safe:[animation-delay:100ms] lg:text-xl dark:text-zinc-400"
+            >
+                Your coding agent puts a checklist of what to verify on your
+                devices. Keep it at hand while you test, mark what
+                <strong
+                    class="font-semibold text-emerald-600 dark:text-emerald-400"
+                    >works</strong
+                >, what
+                <strong class="font-semibold text-red-600 dark:text-red-400"
+                    >doesn't</strong
+                >
+                or what needs a
+                <strong class="font-semibold text-amber-600 dark:text-amber-400"
+                    >question</strong
+                >, and the agent reads your review and fixes the rest.
+            </p>
+            <p
+                class="motion-safe:animate-rise mt-3 max-w-xl text-base text-pretty text-zinc-500 motion-safe:[animation-delay:150ms] dark:text-zinc-400"
+            >
+                Not a list buried in the chat: keep it on another device, so
+                what you are testing and what to check are always in front of
+                you. You can share the same checklist with a client to test too.
+            </p>
+
+            <div
+                class="motion-safe:animate-rise mt-9 max-w-2xl motion-safe:[animation-delay:200ms]"
+            >
+                <InstallCommand label="1. Install it from a terminal:" />
+                <p class="mt-4 text-sm text-zinc-600 dark:text-zinc-400">
+                    <span class="font-medium text-zinc-500 dark:text-zinc-400">2.</span> Ask
+                    Claude Code or Codex to <CopyCode code="put the checks on palmtop" />
+                </p>
+                <ul
+                    class="mt-4 flex flex-wrap gap-2 text-xs font-medium text-zinc-600 dark:text-zinc-400"
+                >
+                    <li
+                        class="rounded-full bg-zinc-200/60 px-2.5 py-1 dark:bg-zinc-800/80"
+                    >
+                        macOS, Linux or Windows
+                    </li>
+                    <li
+                        class="rounded-full bg-zinc-200/60 px-2.5 py-1 dark:bg-zinc-800/80"
+                    >
+                        Node.js 22+
+                    </li>
+                    <li
+                        class="rounded-full bg-emerald-100/70 px-2.5 py-1 text-emerald-800 dark:bg-emerald-950/70 dark:text-emerald-300"
+                    >
+                        End-to-end encrypted
+                    </li>
+                    <li
+                        class="rounded-full bg-emerald-100/70 px-2.5 py-1 text-emerald-800 dark:bg-emerald-950/70 dark:text-emerald-300"
+                    >
+                        Open source
+                    </li>
+                </ul>
+                <p class="mt-4 text-sm text-zinc-500 dark:text-zinc-400">
+                    Another agent? See <a
+                        href="/docs/agents"
+                        class="font-medium text-zinc-700 underline underline-offset-2 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-zinc-100"
+                        >using palmtop with any agent</a
+                    >.
+                </p>
+            </div>
+        </div>
+
+        <div
+            class="motion-safe:animate-rise relative mx-auto w-full max-w-[19rem] motion-safe:[animation-delay:250ms] lg:max-w-[21rem]"
+        >
+            <div
+                aria-hidden="true"
+                class="motion-safe:animate-rise absolute inset-x-3 -top-9 z-10 flex items-start gap-2.5 rounded-2xl border border-zinc-200 bg-white/90 p-3 text-left shadow-xl backdrop-blur motion-safe:[animation-delay:1200ms] dark:border-zinc-700 dark:bg-zinc-800/90"
+            >
+                <img src="/icon.svg" alt="" class="size-7 rounded-md" />
+                <div class="min-w-0 text-[12px] leading-snug">
+                    <p class="font-semibold">MacBook - my-app</p>
+                    <p class="text-zinc-600 dark:text-zinc-300">
+                        New checklist: Login flow
+                    </p>
+                </div>
+                <span class="ml-auto text-[11px] text-zinc-400">now</span>
+            </div>
+            <div class="motion-safe:animate-float" aria-hidden="true">
+                <div
+                    class="rounded-[2.6rem] border border-zinc-300 bg-zinc-900 p-2.5 shadow-2xl shadow-zinc-900/20 dark:border-zinc-700 dark:shadow-black/60"
+                >
+                    <div
+                        class="overflow-hidden rounded-[2.1rem] bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100"
+                    >
+                        <div
+                            class="flex items-center justify-between px-5 pt-5 pb-3"
+                        >
+                            <span class="truncate text-[15px] font-semibold"
+                                >MacBook - my-app</span
+                            >
+                            <span
+                                class="flex items-center gap-1.5 rounded-full bg-emerald-100 px-2 py-0.5 text-[11px] font-medium text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300"
+                            >
+                                <span class="relative flex size-1.5">
+                                    <span
+                                        class="absolute inline-flex size-full motion-safe:animate-ping rounded-full bg-emerald-400 opacity-75"
+                                    ></span>
+                                    <span
+                                        class="relative size-1.5 rounded-full bg-emerald-500"
+                                    ></span>
+                                </span>
+                                Live
+                            </span>
+                        </div>
+                        <div
+                            class="mx-4 mb-3 rounded-xl border border-sky-200 bg-sky-50 px-3 py-2 text-[12px] dark:border-sky-900 dark:bg-sky-950/60"
+                        >
+                            <p
+                                class="text-[10px] font-medium text-sky-700 dark:text-sky-300"
+                            >
+                                From the agent · 14:32
+                            </p>
+                            <p class="mt-0.5 text-zinc-700 dark:text-zinc-300">
+                                Login fixed: 4 checks for you
+                            </p>
+                        </div>
+                        <div
+                            class="mx-4 mb-5 rounded-2xl bg-white p-4 shadow-sm dark:bg-zinc-900"
+                        >
+                            <div class="flex items-baseline justify-between">
+                                <span class="text-sm font-semibold"
+                                    >Login flow</span
+                                >
+                                <span
+                                    id="demo-count"
+                                    class="text-[11px] text-zinc-500"
+                                    >3/4 reviewed</span
+                                >
+                            </div>
+                            <ul
+                                class="mt-2 divide-y divide-zinc-100 text-[13px] dark:divide-zinc-800"
+                            >
+                                <li class="flex items-center gap-2 py-2.5">
+                                    <span class="flex-1"
+                                        >Wrong password shows an error</span
+                                    >
+                                    <span
+                                        class="grid size-6 place-items-center rounded-md bg-emerald-600 text-xs font-bold text-white"
+                                        >✓</span
+                                    >
+                                </li>
+                                <li class="py-2.5">
+                                    <div class="flex items-center gap-2">
+                                        <span class="flex-1"
+                                            >/settings logged out goes to /login</span
+                                        >
+                                        <span
+                                            class="grid size-6 place-items-center rounded-md bg-red-600 text-xs font-bold text-white"
+                                            >✕</span
+                                        >
+                                    </div>
+                                    <p
+                                        class="mt-1.5 rounded-md bg-zinc-100 px-2 py-1 text-[12px] text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400"
+                                    >
+                                        Blank page on Safari
+                                    </p>
+                                </li>
+                                <li class="py-2.5">
+                                    <div class="flex items-center gap-2">
+                                        <span class="flex-1"
+                                            >"Remember me" survives a restart</span
+                                        >
+                                        <span
+                                            class="grid size-6 place-items-center rounded-md bg-amber-500 text-xs font-bold text-white"
+                                            >?</span
+                                        >
+                                    </div>
+                                    <p
+                                        class="mt-1.5 rounded-md bg-zinc-100 px-2 py-1 text-[12px] text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400"
+                                    >
+                                        Browser or server restart?
+                                    </p>
+                                </li>
+                                <li
+                                    id="demo-item"
+                                    class="flex items-center gap-2 py-2.5"
+                                >
+                                    <span class="flex-1"
+                                        >Log out returns to /login</span
+                                    >
+                                    <span class="flex">
+                                        <span
+                                            class="demo-done grid size-6 place-items-center rounded-md border border-zinc-300 text-xs font-bold dark:border-zinc-700"
+                                            >✓</span
+                                        >
+                                        <span
+                                            class="demo-other ml-1 size-6 rounded-md border border-zinc-300 dark:border-zinc-700"
+                                        ></span>
+                                        <span
+                                            class="demo-other ml-1 size-6 rounded-md border border-zinc-300 dark:border-zinc-700"
+                                        ></span>
+                                    </span>
+                                </li>
+                            </ul>
+                            <p
+                                class="pt-2 text-[12px] font-medium text-zinc-500"
+                            >
+                                + Add item
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="scroll-mt-6 py-10 md:py-14">
+        <h2 data-reveal class="text-2xl font-semibold tracking-tight">
+            How it works
+        </h2>
+        <ol
+            class="mt-8 grid items-stretch gap-3 lg:grid-cols-[1fr_auto_1fr_auto_1fr]"
+        >
+            <li
+                data-reveal
+                class="rounded-2xl border border-zinc-200 bg-white/80 p-5 dark:border-zinc-800 dark:bg-zinc-900/70"
+            >
+                <span
+                    class="grid size-7 place-items-center rounded-full bg-emerald-600 text-sm font-semibold text-white"
+                    >1</span
+                >
+                <h3 class="mt-3 font-semibold">Install and pair</h3>
+                <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+                    Run the installer in a terminal: it sets up Claude Code or Codex, then shows a
+                    QR code to scan with your phone.
+                </p>
+            </li>
+            <li
+                aria-hidden="true"
+                class="grid place-items-center text-xl text-zinc-400 max-lg:rotate-90"
+            >
+                →
+            </li>
+            <li
+                data-reveal
+                style="--reveal-delay: 100ms"
+                class="rounded-2xl border border-zinc-200 bg-white/80 p-5 dark:border-zinc-800 dark:bg-zinc-900/70"
+            >
+                <span
+                    class="grid size-7 place-items-center rounded-full bg-emerald-600 text-sm font-semibold text-white"
+                    >2</span
+                >
+                <h3 class="mt-3 font-semibold">Ask for the checks</h3>
+                <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+                    Tell your agent what to build, and to put the checks on palmtop.
+                </p>
+                <p class="mt-3">
+                    <CopyCode code="put the checks on palmtop" />
+                </p>
+            </li>
+            <li
+                aria-hidden="true"
+                class="grid place-items-center text-xl text-zinc-400 max-lg:rotate-90"
+            >
+                →
+            </li>
+            <li
+                data-reveal
+                style="--reveal-delay: 200ms"
+                class="rounded-2xl border border-zinc-200 bg-white/80 p-5 dark:border-zinc-800 dark:bg-zinc-900/70"
+            >
+                <span
+                    class="grid size-7 place-items-center rounded-full bg-emerald-600 text-sm font-semibold text-white"
+                    >3</span
+                >
+                <h3 class="mt-3 font-semibold">Test and review</h3>
+                <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+                    Mark each check, then tap Review done or say it in the chat: the agent fixes what doesn't work.
+                </p>
+                <p class="mt-3 text-sm text-zinc-500 dark:text-zinc-400">
+                    <CopyCode code="I reviewed the checks on palmtop" /> or just
+                    <CopyCode code="Done" />
+                </p>
+            </li>
+        </ol>
+    </section>
+
+    <section class="py-10 md:py-14">
+        <h2 data-reveal class="text-2xl font-semibold tracking-tight">
+            More than a checklist
+        </h2>
+        <ul class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {
+                features.map((feature, index) => (
+                    <li
+                        data-reveal
+                        style={`--reveal-delay: ${(index % 3) * 100}ms`}
+                        class:list={[
+                            "rounded-2xl border p-6",
+                            feature.soon
+                                ? "border-dashed border-zinc-300 bg-white/30 opacity-60 dark:border-zinc-700 dark:bg-zinc-900/30"
+                                : "border-zinc-200 bg-white/60 dark:border-zinc-800 dark:bg-zinc-900/50",
+                        ]}
+                    >
+                        <h3 class="flex flex-wrap items-center gap-2 font-semibold">
+                            {feature.title}
+                            {feature.soon && (
+                                <span class="rounded-full bg-zinc-200/80 px-2 py-0.5 text-[11px] font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
+                                    Coming soon
+                                </span>
+                            )}
+                        </h3>
+                        <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+                            {feature.text}
+                        </p>
+                    </li>
+                ))
+            }
+        </ul>
+    </section>
+
+    <section class="py-10 md:py-14">
+        <h2 data-reveal class="text-2xl font-semibold tracking-tight">
+            Your checklists live on your computer
+        </h2>
+        <p data-reveal class="mt-3 max-w-3xl text-zinc-600 dark:text-zinc-400">
+            palmtop runs a small daemon next to your agent. Your devices reach
+            it through a relay that only forwards messages, nothing stored on
+            the server.
+        </p>
+
+        <div
+            data-reveal
+            class="mt-8 grid items-stretch gap-3 text-sm md:grid-cols-[1fr_auto_1fr_auto_1fr]"
+            role="img"
+            aria-label="Your computer, with the agent and the palmtop daemon, talks to your devices through the relay"
+        >
+            <div
+                class="rounded-2xl border border-zinc-200 bg-white/80 p-5 dark:border-zinc-800 dark:bg-zinc-900/70"
+            >
+                <p class="font-semibold">Your computer</p>
+                <p class="mt-2 text-zinc-600 dark:text-zinc-400">
+                    The agent runs <code class="font-mono text-[13px]"
+                        >palmtop</code
+                    > commands. The daemon keeps checklists and reviews in <code
+                        class="font-mono text-[13px]">~/.palmtopai</code
+                    >.
+                </p>
+            </div>
+            <div
+                class="grid place-items-center text-xl text-zinc-400 max-md:rotate-90"
+                aria-hidden="true"
+            >
+                ⇄
+            </div>
+            <div
+                class="rounded-2xl border border-zinc-200 bg-white/80 p-5 dark:border-zinc-800 dark:bg-zinc-900/70"
+            >
+                <p class="font-semibold">Relay</p>
+                <p class="mt-2 text-zinc-600 dark:text-zinc-400">
+                    Forwards end-to-end encrypted messages it can't read, one
+                    room per computer. Keeps nothing on disk.
+                </p>
+            </div>
+            <div
+                class="grid place-items-center text-xl text-zinc-400 max-md:rotate-90"
+                aria-hidden="true"
+            >
+                ⇄
+            </div>
+            <div
+                class="rounded-2xl border border-zinc-200 bg-white/80 p-5 dark:border-zinc-800 dark:bg-zinc-900/70"
+            >
+                <p class="font-semibold">Your devices</p>
+                <p class="mt-2 text-zinc-600 dark:text-zinc-400">
+                    Phone, tablet or browser, paired once per computer with a QR
+                    code. Each one has its own key, and the agent never sees the
+                    pairing link.
+                </p>
+            </div>
+        </div>
+
+        <p
+            data-reveal
+            class="mt-6 rounded-2xl border border-emerald-600/25 bg-emerald-50/70 p-5 text-sm text-emerald-950 dark:border-emerald-800/50 dark:bg-emerald-950/30 dark:text-emerald-100"
+        >
+            <strong class="font-semibold">End-to-end encrypted.</strong> Only your
+            computer and your paired devices can read your checklists: the relay
+            forwards data it can't read, and stores nothing.
+            <a
+                href="/docs/security"
+                class="font-medium underline underline-offset-2"
+                >Security and privacy</a
+            >
+        </p>
+    </section>
+
+    <section id="roadmap" class="scroll-mt-6 py-10 md:py-14">
+        <div class="grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-16">
+            <div data-reveal class="lg:sticky lg:top-8 lg:self-start">
+                <h2 class="text-2xl font-semibold tracking-tight">Roadmap</h2>
+                <p class="mt-3 text-zinc-600 dark:text-zinc-400">
+                    Where we're heading: never lose track of what to test. No
+                    dates: things ship when they are ready.
+                </p>
+                <a
+                    href="/changelog"
+                    class="mt-4 inline-block text-sm font-medium text-zinc-700 underline underline-offset-2 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-zinc-100"
+                    >Full changelog</a
+                >
+            </div>
+
+            <ol class="relative">
+                {
+                    ROADMAP.map((step, index) => {
+                        const first =
+                            index === 0 ||
+                            ROADMAP[index - 1]?.stage !== step.stage;
+                        const last = index === ROADMAP.length - 1;
+                        return (
+                            <li
+                                data-reveal
+                                class="relative pb-8 pl-10 last:pb-0"
+                            >
+                                {!last && (
+                                    <span
+                                        aria-hidden="true"
+                                        class:list={[
+                                            "absolute top-5 bottom-0 left-[0.6875rem] w-px",
+                                            step.stage === "released"
+                                                ? "bg-emerald-500/60"
+                                                : "bg-zinc-300 dark:bg-zinc-700",
+                                        ]}
+                                    />
+                                )}
+                                <span
+                                    aria-hidden="true"
+                                    class:list={[
+                                        "absolute top-1 left-0 grid size-6 place-items-center rounded-full border-2",
+                                        step.stage === "released"
+                                            ? "border-emerald-500 bg-emerald-500 text-[11px] font-bold text-white"
+                                            : step.stage === "next"
+                                              ? "border-emerald-500 bg-zinc-50 dark:bg-zinc-950"
+                                              : "border-zinc-300 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-950",
+                                    ]}
+                                >
+                                    {step.stage === "released" ? "✓" : ""}
+                                </span>
+                                {first && STAGE_LABEL[step.stage] && (
+                                    <p
+                                        class:list={[
+                                            "mb-1 text-xs font-semibold tracking-wide uppercase",
+                                            step.stage === "later"
+                                                ? "text-zinc-500"
+                                                : "text-emerald-600 dark:text-emerald-400",
+                                        ]}
+                                    >
+                                        {STAGE_LABEL[step.stage]}
+                                    </p>
+                                )}
+                                {step.title && (
+                                    <h3 class="font-semibold">
+                                        {step.label && (
+                                            <span class="mr-2 font-mono text-sm font-medium text-zinc-500">
+                                                {step.label}
+                                            </span>
+                                        )}
+                                        {step.title}
+                                    </h3>
+                                )}
+                                {step.summary && (
+                                    <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                                        {step.summary}
+                                    </p>
+                                )}
+                                {step.items && (
+                                    <div class="space-y-4">
+                                        {step.items.map((item) => (
+                                            <div>
+                                                <h3 class="font-semibold">
+                                                    {item.title}
+                                                </h3>
+                                                <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                                                    {item.summary}
+                                                </p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </li>
+                        );
+                    })
+                }
+            </ol>
+        </div>
+    </section>
+
+    <section id="feedback" class="scroll-mt-6 py-10 md:py-14">
+        <div class="grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-16">
+            <div data-reveal>
+                <h2 class="text-2xl font-semibold tracking-tight">Feedback</h2>
+                <p class="mt-3 text-zinc-600 dark:text-zinc-400">
+                    palmtop is a preview: tell us what breaks, what's missing
+                    and what you'd like next. We read every message and reply
+                    by email.
+                </p>
+            </div>
+
+            <form
+                id="feedback-form"
+                data-reveal
+                class="space-y-5 rounded-2xl border border-zinc-200 bg-white/60 p-6 dark:border-zinc-800 dark:bg-zinc-900/50"
+            >
+                <fieldset>
+                    <legend class="text-sm font-medium">What is it about?</legend>
+                    <div
+                        class="mt-2 inline-flex flex-wrap gap-1 rounded-lg bg-zinc-200/70 p-1 dark:bg-zinc-800"
+                    >
+                        {
+                            FEEDBACK_TYPES.map((type, index) => (
+                                <label class="feedback-type cursor-pointer">
+                                    <input
+                                        type="radio"
+                                        name="type"
+                                        value={type.value}
+                                        checked={index === 0}
+                                        class="peer sr-only"
+                                    />
+                                    <span class="block rounded-md px-3 py-1.5 text-sm font-medium text-zinc-600 peer-checked:bg-white peer-checked:text-zinc-900 peer-checked:shadow-sm peer-focus-visible:ring-2 peer-focus-visible:ring-emerald-500 dark:text-zinc-400 dark:peer-checked:bg-zinc-950 dark:peer-checked:text-zinc-100">
+                                        {type.label}
+                                    </span>
+                                </label>
+                            ))
+                        }
+                    </div>
+                </fieldset>
+
+                <label class="block">
+                    <span class="text-sm font-medium">Message</span>
+                    <textarea
+                        name="message"
+                        required
+                        rows="5"
+                        maxlength={FEEDBACK_MESSAGE_MAX}
+                        placeholder="What happened, or what would you like palmtop to do?"
+                        class="mt-2 block w-full resize-y rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm placeholder:text-zinc-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/30 focus:outline-none dark:border-zinc-700 dark:bg-zinc-950"
+                    ></textarea>
+                </label>
+
+                <label class="block">
+                    <span class="text-sm font-medium">Email</span>
+                    <input
+                        type="email"
+                        name="email"
+                        required
+                        maxlength="254"
+                        autocomplete="email"
+                        placeholder="you@example.com"
+                        class="mt-2 block w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm placeholder:text-zinc-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/30 focus:outline-none dark:border-zinc-700 dark:bg-zinc-950"
+                    />
+                    <span class="mt-1 block text-xs text-zinc-500"
+                        >Only to reply to you.</span
+                    >
+                </label>
+
+                <!-- Hidden from people: bots fill it in. -->
+                <div aria-hidden="true" class="absolute -left-[9999px]">
+                    <label
+                        >Website <input
+                            type="text"
+                            name="website"
+                            tabindex="-1"
+                            autocomplete="off"
+                        /></label
+                    >
+                </div>
+
+                <div class="flex flex-wrap items-center gap-4">
+                    <button
+                        type="submit"
+                        class="rounded-lg bg-zinc-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-zinc-700 disabled:opacity-60 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white"
+                        >Send feedback</button
+                    >
+                    <p
+                        data-feedback-status
+                        role="status"
+                        class="text-sm text-zinc-600 data-[result=error]:text-red-600 data-[result=ok]:text-emerald-700 dark:text-zinc-400 dark:data-[result=error]:text-red-400 dark:data-[result=ok]:text-emerald-400"
+                    >
+                    </p>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <section data-reveal class="py-10 md:py-14">
+        <div
+            class="flex flex-col items-start gap-6 rounded-3xl border border-zinc-200 bg-white/80 p-8 md:flex-row md:items-center md:justify-between dark:border-zinc-800 dark:bg-zinc-900/70"
+        >
+            <div>
+                <h2 class="text-2xl font-semibold tracking-tight">
+                    Ready to try it?
+                </h2>
+                <p class="mt-2 text-zinc-600 dark:text-zinc-400">
+                    Run the command above, or follow the step-by-step guide.
+                </p>
+            </div>
+            <a
+                href="/docs/getting-started"
+                class="group rounded-lg bg-zinc-900 px-4 py-2.5 text-sm font-semibold whitespace-nowrap text-white hover:bg-zinc-700 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white"
+                >Get started <span
+                    class="inline-block transition-transform group-hover:translate-x-0.5"
+                    >→</span
+                ></a
+            >
+        </div>
+    </section>
+</Base>

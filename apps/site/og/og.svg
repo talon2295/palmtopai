@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" font-family="Noto Sans, DejaVu Sans, sans-serif">
+    <title>PalmtopAI, the missing checklist for AI coding</title>
+    <!-- Social preview (Open Graph) image. After changes: rsvg-convert apps/site/og/og.svg -o apps/site/public/og.png -->
+    <defs>
+        <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">
+            <circle cx="12" cy="12" r="1.2" fill="#ffffff" fill-opacity="0.08" />
+        </pattern>
+        <radialGradient id="fade" cx="50%" cy="0%" r="90%">
+            <stop offset="0%" stop-color="#fff" />
+            <stop offset="100%" stop-color="#fff" stop-opacity="0" />
+        </radialGradient>
+        <mask id="grid-mask">
+            <rect width="1200" height="630" fill="url(#fade)" />
+        </mask>
+        <radialGradient id="blob-a">
+            <stop offset="0%" stop-color="#10b981" stop-opacity="0.28" />
+            <stop offset="100%" stop-color="#10b981" stop-opacity="0" />
+        </radialGradient>
+        <radialGradient id="blob-b">
+            <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.14" />
+            <stop offset="100%" stop-color="#f59e0b" stop-opacity="0" />
+        </radialGradient>
+        <radialGradient id="blob-c">
+            <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.14" />
+            <stop offset="100%" stop-color="#38bdf8" stop-opacity="0" />
+        </radialGradient>
+        <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+            <feDropShadow dx="0" dy="24" stdDeviation="28" flood-color="#000" flood-opacity="0.6" />
+        </filter>
+    </defs>
+    <rect width="1200" height="630" fill="#09090b" />
+    <circle cx="120" cy="40" r="520" fill="url(#blob-a)" />
+    <circle cx="1180" cy="250" r="480" fill="url(#blob-b)" />
+    <circle cx="600" cy="760" r="460" fill="url(#blob-c)" />
+    <rect width="1200" height="630" fill="url(#dots)" mask="url(#grid-mask)" />
+    <g transform="translate(80 150) scale(1.375)"><rect width="64" height="64" rx="14" fill="#0b0d12" stroke="#27272a" stroke-width="1" /><path d="M18 33l9 9 19-20" fill="none" stroke="#34d399" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" /></g>
+    <text x="76" y="330" fill="#fafafa" font-size="84" font-weight="700" letter-spacing="-2">PalmtopAI</text>
+    <text x="80" y="400" fill="#d4d4d8" font-size="36">The missing checklist</text>
+    <text x="80" y="448" fill="#d4d4d8" font-size="36">for AI coding</text>
+    <text x="80" y="540" fill="#34d399" font-size="24" font-weight="600">palmtop.mtwa.it</text>
+
+    <g transform="rotate(-3 910 320)" filter="url(#shadow)">
+        <rect x="680" y="90" width="460" height="460" rx="28" fill="#18181b" stroke="#3f3f46" stroke-width="1.5" />
+    </g>
+    <g transform="rotate(-3 910 320)">
+        <text x="712" y="148" fill="#fafafa" font-size="26" font-weight="700">Login flow</text>
+        <text x="1108" y="148" fill="#71717a" font-size="18" text-anchor="end">3/3 reviewed</text>
+
+        <text x="712" y="220" fill="#e4e4e7" font-size="22">Wrong password shows an error</text>
+        <rect x="1068" y="193" width="40" height="40" rx="9" fill="#059669" />
+        <path d="M1078 214l6 6 14-14" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+        <line x1="712" y1="258" x2="1108" y2="258" stroke="#27272a" stroke-width="1.5" />
+
+        <text x="712" y="302" fill="#e4e4e7" font-size="22">/settings goes to /login</text>
+        <rect x="1068" y="275" width="40" height="40" rx="9" fill="#dc2626" />
+        <path d="M1080 287l16 16M1096 287l-16 16" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" />
+        <rect x="712" y="326" width="396" height="42" rx="8" fill="#27272a" />
+        <text x="728" y="354" fill="#a1a1aa" font-size="19">Blank page on Safari</text>
+        <line x1="712" y1="394" x2="1108" y2="394" stroke="#27272a" stroke-width="1.5" />
+
+        <text x="712" y="438" fill="#e4e4e7" font-size="22">"Remember me" after a restart</text>
+        <rect x="1068" y="411" width="40" height="40" rx="9" fill="#f59e0b" />
+        <text x="1088" y="441" fill="#fff" font-size="26" font-weight="700" text-anchor="middle">?</text>
+        <rect x="712" y="462" width="396" height="42" rx="8" fill="#27272a" />
+        <text x="728" y="490" fill="#a1a1aa" font-size="19">Browser or server restart?</text>
+    </g>
+</svg>

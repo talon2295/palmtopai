@@ -1,0 +1,5 @@
+# Text is stored with LF and checked out with LF on every system: the agent guide, the tests and
+# Biome all expect it, and a Windows checkout with CRLF would break them.
+* text=auto eol=lf
+
+*.png binary

@@ -1,0 +1,45 @@
+---
+import { getCollection } from 'astro:content';
+import Docs from '../../layouts/Docs.astro';
+import { docsNavigation } from '../../lib/docs';
+
+const entries = await getCollection('docs');
+const { ordered } = docsNavigation(
+    entries.map((entry) => ({
+        id: entry.id,
+        title: entry.data.title,
+        order: entry.data.order,
+        description: entry.data.description,
+    })),
+    'index',
+);
+---
+
+<Docs
+    id="index"
+    title="Documentation"
+    description="Everything about palmtop: install it, pair your devices, ask your agent for checks and read the review back."
+>
+    <p>
+        palmtop is the missing checklist for AI coding: it connects your coding agent to your devices. The agent writes the checks of its work, you
+        test them and mark each one, and the agent reads your review to fix what doesn't work. New
+        here? Start with <a href="/docs/getting-started">Getting started</a>.
+    </p>
+    <ul class="not-prose mt-8 grid gap-3 sm:grid-cols-2">
+        {
+            ordered.map((doc) => (
+                <li>
+                    <a
+                        href={`/docs/${doc.id}`}
+                        class="block h-full rounded-xl border border-zinc-200 bg-white/70 p-4 hover:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-900/60 dark:hover:border-zinc-600"
+                    >
+                        <span class="font-semibold">{doc.title}</span>
+                        <span class="mt-1 block text-sm text-zinc-600 dark:text-zinc-400">
+                            {doc.description}
+                        </span>
+                    </a>
+                </li>
+            ))
+        }
+    </ul>
+</Docs>

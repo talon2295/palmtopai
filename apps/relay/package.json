@@ -1,0 +1,33 @@
+{
+    "name": "@palmtopai/relay",
+    "version": "0.0.0",
+    "license": "Apache-2.0",
+    "author": "Gianluca Orsini",
+    "homepage": "https://palmtop.mtwa.it",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/talon2295/palmtopai.git",
+        "directory": "apps/relay"
+    },
+    "bugs": {
+        "url": "https://github.com/talon2295/palmtopai/issues"
+    },
+    "private": true,
+    "type": "module",
+    "exports": {
+        ".": "./src/index.ts"
+    },
+    "scripts": {
+        "start": "bun src/main.ts",
+        "typecheck": "tsc --noEmit -p tsconfig.json"
+    },
+    "dependencies": {
+        "@palmtopai/protocol": "workspace:*",
+        "ink": "^7.1.1",
+        "react": "^19.3.0",
+        "zod": "^4.6.5"
+    },
+    "devDependencies": {
+        "@types/react": "^19.3.0"
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "@palmtopai/agent-guide",
+    "version": "0.0.0",
+    "license": "Apache-2.0",
+    "author": "Gianluca Orsini",
+    "homepage": "https://palmtop.mtwa.it",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/talon2295/palmtopai.git",
+        "directory": "integrations/agent-guide"
+    },
+    "bugs": {
+        "url": "https://github.com/talon2295/palmtopai/issues"
+    },
+    "private": true,
+    "type": "module",
+    "exports": {
+        ".": "./src/index.ts"
+    },
+    "scripts": {
+        "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.runtime.json"
+    }
+}

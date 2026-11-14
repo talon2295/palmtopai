@@ -1,0 +1,65 @@
+---
+/**
+ * The install command with a Copy button (scripts/site.ts), for the system of the visitor: the
+ * script picks macOS / Linux or Windows from the browser, and the buttons change it. Without
+ * JavaScript the shell command is shown and the Windows one is written under it.
+ */
+import { INSTALL_COMMANDS } from '../lib/site';
+
+interface Props {
+    label: string;
+}
+const { label } = Astro.props;
+
+const choices = [
+    { system: 'unix', name: 'macOS / Linux' },
+    { system: 'windows', name: 'Windows' },
+] as const;
+---
+
+<div data-install data-unix={INSTALL_COMMANDS.unix} data-windows={INSTALL_COMMANDS.windows}>
+    <div class="mb-2 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+        <p class="text-sm font-medium text-zinc-500 dark:text-zinc-400">{label}</p>
+        <div
+            role="group"
+            aria-label="Your system"
+            class="inline-flex rounded-lg border border-zinc-300 bg-zinc-100 p-0.5 text-xs font-medium dark:border-zinc-700 dark:bg-zinc-800"
+        >
+            {
+                choices.map(({ system, name }) => (
+                    <button
+                        type="button"
+                        data-install-system={system}
+                        aria-pressed={system === 'unix' ? 'true' : 'false'}
+                        class="cursor-pointer rounded-md px-2.5 py-1 text-zinc-600 transition-colors hover:text-zinc-900 aria-pressed:bg-white aria-pressed:text-zinc-900 aria-pressed:shadow-sm dark:text-zinc-400 dark:hover:text-zinc-100 dark:aria-pressed:bg-zinc-950 dark:aria-pressed:text-zinc-100"
+                    >
+                        {name}
+                    </button>
+                ))
+            }
+        </div>
+    </div>
+    <div
+        class="flex items-stretch overflow-hidden rounded-xl border border-zinc-300 bg-white shadow-sm dark:border-zinc-700 dark:bg-zinc-900"
+    >
+        <code
+            class="min-w-0 flex-1 px-4 py-3 font-mono text-sm leading-relaxed [overflow-wrap:anywhere]"
+            ><span class="text-zinc-400 select-none dark:text-zinc-500" data-command-prompt
+                >$ </span
+            ><span data-command-text>{INSTALL_COMMANDS.unix}</span></code
+        >
+        <button
+            type="button"
+            data-copy-command
+            class="shrink-0 cursor-pointer border-l border-zinc-300 bg-zinc-900 px-4 text-sm font-semibold text-white transition-colors hover:bg-zinc-700 dark:border-zinc-700 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white"
+        >
+            Copy
+        </button>
+    </div>
+    <p class="mt-2 text-xs text-zinc-500 dark:text-zinc-400">Needs Node.js 22+.</p>
+    <noscript>
+        <p class="mt-2 text-xs text-zinc-500 dark:text-zinc-400">
+            On Windows, in PowerShell: <code class="font-mono">{INSTALL_COMMANDS.windows}</code>
+        </p>
+    </noscript>
+</div>

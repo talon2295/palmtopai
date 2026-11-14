@@ -1,0 +1,21 @@
+name: Feature request
+description: An idea to make palmtop better.
+labels: [enhancement]
+body:
+    - type: textarea
+      id: problem
+      attributes:
+          label: What you are trying to do
+          description: The situation, and what gets in the way today.
+      validations:
+          required: true
+    - type: textarea
+      id: idea
+      attributes:
+          label: Your idea
+          description: How palmtop could help. Sketches and examples are welcome.
+    - type: input
+      id: agent
+      attributes:
+          label: Agent
+          placeholder: Claude Code, Codex, other

@@ -1,0 +1,70 @@
+# nginx site for the PalmtopAI relay (e.g. /etc/nginx/sites-available/palmtop.mtwa.it).
+# Get the certificates first (`sudo certbot certonly --nginx -d <name>`), then enable this site:
+# the ssl_* paths below must exist or `nginx -t` fails. They are named after the certificate, not
+# after the site: a name added to an existing certificate lives under the folder of the first one
+# it was issued for. `sudo certbot certificates` prints, for each one, the names it covers and the
+# path to use here.
+# Syntax compatible with nginx 1.18 (`listen … http2`; `http2 on;` needs nginx ≥ 1.25).
+#
+# `palmtop.mtwa.it` is the home of the relay and the site; the app has a name of its own,
+# `app.palmtop.mtwa.it`, so that its storage stays apart from the site's. Both go to the relay,
+# which tells them apart by `Host`. One certificate covers the two (`sudo certbot certonly --nginx
+# --expand -d palmtop.mtwa.it -d app.palmtop.mtwa.it`): its folder keeps the first name. The
+# names used before only redirect to the home.
+#
+# While something still points at an old name it must keep **proxying**, never redirect: a 301 is
+# not followed by a WebSocket handshake, so a daemon carrying that address in its bundle would
+# lose the relay, and a device paired there keeps its token, its offline copy and its
+# notifications on that origin. Give it a `server` block like the one of the home, with its own
+# certificate, and turn it into a redirect only once nothing points at it. A computer left behind
+# can still catch up (`palmtop update` follows the redirect over HTTPS), but until it does, its
+# daemon has no relay.
+#
+# The proxy itself lives in one snippet, included by every name: `palmtop-proxy.conf.example`.
+
+# Like "combined" without query strings.
+log_format palmtop_noquery '$remote_addr - $remote_user [$time_local] "$request_method $uri" '
+                           '$status $body_bytes_sent "$http_referer" "$http_user_agent"';
+
+map $http_upgrade $connection_upgrade {
+    default upgrade;
+    ''      close;
+}
+
+
+# --- The home: site and relay, and the app ------------------------------------------------------
+server {
+    listen 80;
+    listen [::]:80;
+    server_name palmtop.mtwa.it app.palmtop.mtwa.it;
+
+    # Let the ACME renewals through.
+    location /.well-known/acme-challenge/ {
+        root /var/www/html;
+    }
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name palmtop.mtwa.it app.palmtop.mtwa.it;
+
+    ssl_certificate     /etc/letsencrypt/live/palmtop.mtwa.it/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/palmtop.mtwa.it/privkey.pem;
+    include             /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam         /etc/letsencrypt/ssl-dhparams.pem;
+
+    add_header Strict-Transport-Security "max-age=31536000" always;
+
+    # Pairing links carry a single-use key in the URL fragment, which browsers never send.
+    # Do not log query strings anyway: /ws?room=<roomId> identifies a project room.
+    access_log /var/log/nginx/palmtopai.access.log palmtop_noquery;
+
+    location / {
+        include /etc/nginx/snippets/palmtop-proxy.conf;
+    }
+}

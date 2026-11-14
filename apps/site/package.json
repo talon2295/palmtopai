@@ -1,0 +1,31 @@
+{
+    "name": "@palmtopai/site",
+    "version": "0.0.0",
+    "license": "Apache-2.0",
+    "author": "Gianluca Orsini",
+    "homepage": "https://palmtop.mtwa.it",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/talon2295/palmtopai.git",
+        "directory": "apps/site"
+    },
+    "bugs": {
+        "url": "https://github.com/talon2295/palmtopai/issues"
+    },
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "astro dev",
+        "build": "astro build",
+        "typecheck": "tsc --noEmit -p tsconfig.json"
+    },
+    "dependencies": {
+        "astro": "^7.3.3"
+    },
+    "devDependencies": {
+        "@happy-dom/global-registrator": "^20.14.5",
+        "@tailwindcss/typography": "^0.5.20",
+        "@tailwindcss/vite": "^4.3.3",
+        "tailwindcss": "^4.3.3"
+    }
+}

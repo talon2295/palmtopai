@@ -1,0 +1,48 @@
+{
+    "name": "palmtopai",
+    "license": "Apache-2.0",
+    "author": "Gianluca Orsini",
+    "homepage": "https://palmtop.mtwa.it",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/talon2295/palmtopai.git"
+    },
+    "bugs": {
+        "url": "https://github.com/talon2295/palmtopai/issues"
+    },
+    "private": true,
+    "type": "module",
+    "workspaces": [
+        "packages/*",
+        "apps/*",
+        "integrations/*"
+    ],
+    "engines": {
+        "bun": ">=1.4.2",
+        "node": ">=22"
+    },
+    "scripts": {
+        "serve": "bun packages/cli/src/main.ts serve",
+        "pair": "bun packages/cli/src/main.ts pair",
+        "demo:sync": "bun packages/daemon/scripts/demo-sync.ts",
+        "test": "bun test ./packages ./integrations ./apps/relay && cd apps/web && bun test && cd ../site && bun test",
+        "typecheck": "bun run --filter '*' typecheck",
+        "lint": "biome check .",
+        "format": "biome check --write .",
+        "build:web": "bun run --filter @palmtopai/site build && bun run --filter @palmtopai/web build",
+        "build:cli": "bun packages/cli/scripts/build.ts",
+        "dev:web": "bun run --filter @palmtopai/web dev",
+        "dev:site": "bun run --filter @palmtopai/site dev",
+        "palmtop": "bun packages/cli/src/main.ts",
+        "dev:relay": "bun apps/relay/src/main.ts",
+        "stats": "bun apps/relay/scripts/stats.tsx",
+        "deploy": "bash apps/relay/deploy/deploy.sh",
+        "notices": "bun scripts/third-party-notices.ts"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "^2.5.13",
+        "@types/bun": "^1.4.2",
+        "@types/node": "^22.20.2",
+        "typescript": "^7.0.2"
+    }
+}

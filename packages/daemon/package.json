@@ -1,0 +1,35 @@
+{
+    "name": "@palmtopai/daemon",
+    "version": "0.0.0",
+    "license": "Apache-2.0",
+    "author": "Gianluca Orsini",
+    "homepage": "https://palmtop.mtwa.it",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/talon2295/palmtopai.git",
+        "directory": "packages/daemon"
+    },
+    "bugs": {
+        "url": "https://github.com/talon2295/palmtopai/issues"
+    },
+    "private": true,
+    "type": "module",
+    "exports": {
+        ".": "./src/index.ts"
+    },
+    "scripts": {
+        "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.runtime.json"
+    },
+    "dependencies": {
+        "@hono/node-server": "^2.1.1",
+        "@palmtopai/protocol": "workspace:*",
+        "hono": "^4.13.7",
+        "uqr": "^0.1.3",
+        "web-push": "^3.6.7",
+        "zod": "^4.6.5"
+    },
+    "devDependencies": {
+        "@palmtopai/relay": "workspace:*",
+        "@types/web-push": "^3.6.4"
+    }
+}

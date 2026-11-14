@@ -1,0 +1,10 @@
+{
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+        "lib": ["ESNext", "DOM", "DOM.Iterable"],
+        "types": ["bun"]
+    },
+    "include": ["src/**/*.ts", "build", "test", "astro.config.ts"],
+    // Imports `astro:content`, typed only in `.astro/` after a build: checked by `astro build`.
+    "exclude": ["src/content.config.ts", "src/pages/sitemap.xml.ts"]
+}

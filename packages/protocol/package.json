@@ -1,0 +1,28 @@
+{
+    "name": "@palmtopai/protocol",
+    "version": "0.0.0",
+    "license": "Apache-2.0",
+    "author": "Gianluca Orsini",
+    "homepage": "https://palmtop.mtwa.it",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/talon2295/palmtopai.git",
+        "directory": "packages/protocol"
+    },
+    "bugs": {
+        "url": "https://github.com/talon2295/palmtopai/issues"
+    },
+    "private": true,
+    "type": "module",
+    "exports": {
+        ".": "./src/index.ts",
+        "./relay-crypto": "./src/relay-crypto.ts"
+    },
+    "scripts": {
+        "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.runtime.json"
+    },
+    "dependencies": {
+        "ulid": "^3.0.2",
+        "zod": "^4.6.5"
+    }
+}

@@ -1,0 +1,41 @@
+{
+    "name": "@palmtopai/cli",
+    "version": "0.25.1",
+    "license": "Apache-2.0",
+    "author": "Gianluca Orsini",
+    "homepage": "https://palmtop.mtwa.it",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/talon2295/palmtopai.git",
+        "directory": "packages/cli"
+    },
+    "bugs": {
+        "url": "https://github.com/talon2295/palmtopai/issues"
+    },
+    "private": true,
+    "description": "PalmtopAI CLI and daemon, bundled for Node.js 22+",
+    "type": "module",
+    "bin": {
+        "palmtop": "./dist/palmtop.mjs"
+    },
+    "files": [
+        "dist"
+    ],
+    "engines": {
+        "node": ">=22"
+    },
+    "scripts": {
+        "build": "bun scripts/build.ts",
+        "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.runtime.json"
+    },
+    "devDependencies": {
+        "@clack/prompts": "^1.8.1",
+        "@modelcontextprotocol/sdk": "^1.32.1",
+        "@palmtopai/agent-guide": "workspace:*",
+        "@palmtopai/agents": "workspace:*",
+        "@palmtopai/daemon": "workspace:*",
+        "@palmtopai/protocol": "workspace:*",
+        "@palmtopai/relay": "workspace:*",
+        "zod": "^4.6.5"
+    }
+}

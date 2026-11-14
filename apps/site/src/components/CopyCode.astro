@@ -1,0 +1,9 @@
+---
+/** Inline code copied on click (lib/copy-code.ts). */
+interface Props {
+    code: string;
+}
+const { code } = Astro.props;
+---
+
+<button type="button" class="copy-code" title="Copy"><code>{code}</code></button>

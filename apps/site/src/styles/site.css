@@ -1,0 +1,290 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/*
+ * Dark mode: the visitor's choice (`data-theme` on <html>, set by public/theme-init.js), else the
+ * system theme.
+ */
+@custom-variant dark {
+    &:where([data-theme="dark"], [data-theme="dark"] *) {
+        @slot;
+    }
+    @media (prefers-color-scheme: dark) {
+        &:where(:root:not([data-theme="light"]), :root:not([data-theme="light"]) *) {
+            @slot;
+        }
+    }
+}
+
+@layer base {
+    html {
+        color-scheme: light;
+        -webkit-text-size-adjust: 100%;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    html:not([data-theme="light"]) {
+        @media (prefers-color-scheme: dark) {
+            color-scheme: dark;
+        }
+    }
+
+    html[data-theme="dark"] {
+        color-scheme: dark;
+    }
+
+    /* Tailwind 4 resets buttons to the default cursor. */
+    button:not(:disabled) {
+        cursor: pointer;
+    }
+
+    body {
+        @apply bg-zinc-50 text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100;
+        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+}
+
+@theme {
+    --animate-rise: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    --animate-float: float 9s ease-in-out infinite;
+    --animate-pop: pop 0.45s cubic-bezier(0.3, 1.6, 0.5, 1);
+
+    @keyframes rise {
+        from {
+            opacity: 0;
+            transform: translateY(1rem);
+        }
+        to {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    @keyframes float {
+        0%,
+        100% {
+            transform: translateY(0) rotate(-1deg);
+        }
+        50% {
+            transform: translateY(-0.75rem) rotate(0.5deg);
+        }
+    }
+
+    @keyframes pop {
+        from {
+            transform: scale(0.6);
+        }
+        to {
+            transform: scale(1);
+        }
+    }
+}
+
+/* Background: soft color spots drifting slowly behind a faint dot grid. */
+.bg-grid {
+    background-image: radial-gradient(rgb(24 24 27 / 0.09) 1px, transparent 1px);
+    background-size: 1.5rem 1.5rem;
+    mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black, transparent);
+}
+
+.bg-blob {
+    position: absolute;
+    width: 44rem;
+    height: 44rem;
+    border-radius: 9999px;
+    background: radial-gradient(closest-side, var(--blob), transparent);
+    will-change: transform;
+}
+
+.bg-blob-a {
+    --blob: rgb(16 185 129 / 0.2);
+    top: -16rem;
+    left: -12rem;
+}
+
+.bg-blob-b {
+    --blob: rgb(245 158 11 / 0.14);
+    top: 4rem;
+    right: -16rem;
+}
+
+.bg-blob-c {
+    --blob: rgb(56 189 248 / 0.12);
+    bottom: -20rem;
+    left: 30%;
+}
+
+.bg-grid,
+.bg-blob-a,
+.bg-blob-b,
+.bg-blob-c {
+    @variant dark {
+        &.bg-grid {
+            background-image: radial-gradient(rgb(255 255 255 / 0.07) 1px, transparent 1px);
+        }
+        &.bg-blob-a {
+            --blob: rgb(16 185 129 / 0.14);
+        }
+        &.bg-blob-b {
+            --blob: rgb(245 158 11 / 0.08);
+        }
+        &.bg-blob-c {
+            --blob: rgb(56 189 248 / 0.09);
+        }
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .bg-blob-a {
+        animation: drift-a 28s ease-in-out infinite alternate;
+    }
+    .bg-blob-b {
+        animation: drift-b 34s ease-in-out infinite alternate;
+    }
+    .bg-blob-c {
+        animation: drift-c 40s ease-in-out infinite alternate;
+    }
+}
+
+@keyframes drift-a {
+    to {
+        transform: translate(20rem, 10rem) scale(1.15);
+    }
+}
+
+@keyframes drift-b {
+    to {
+        transform: translate(-18rem, 14rem) scale(0.9);
+    }
+}
+
+@keyframes drift-c {
+    to {
+        transform: translate(-16rem, -12rem) scale(1.1);
+    }
+}
+
+/* Mockup: the last item gets reviewed and reset in a loop (scripts/home.ts). */
+.demo-done {
+    color: transparent;
+    transition:
+        background-color 0.25s,
+        border-color 0.25s,
+        color 0.25s;
+}
+
+.demo-other {
+    transition:
+        opacity 0.3s,
+        transform 0.3s,
+        width 0.3s,
+        margin 0.3s,
+        border-width 0.3s;
+}
+
+[data-reviewed] .demo-done {
+    border-color: var(--color-emerald-600);
+    background-color: var(--color-emerald-600);
+    color: white;
+    animation: var(--animate-pop);
+}
+
+[data-reviewed] .demo-other {
+    width: 0;
+    margin-left: 0;
+    border-width: 0;
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+/* Code snippet copied on click (lib/copy-code.ts): copy icon, then a check and a tooltip. */
+.copy-code {
+    --icon-copy: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='9' y='9' width='13' height='13' rx='2'/%3E%3Cpath d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'/%3E%3C/svg%3E");
+    --icon-check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+    @apply relative inline-flex max-w-full cursor-pointer items-center gap-2 rounded-md bg-zinc-200/80 px-2 py-0.5 text-left align-baseline font-mono text-[13px] font-medium text-zinc-900 transition-colors hover:bg-zinc-300/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700;
+}
+
+.copy-code::after {
+    content: "";
+    flex: none;
+    width: 0.8125rem;
+    height: 0.8125rem;
+    background-color: currentColor;
+    opacity: 0.45;
+    mask: var(--icon-copy) center / contain no-repeat;
+    transition: opacity 0.15s;
+}
+
+.copy-code:hover::after {
+    opacity: 0.8;
+}
+
+.copy-code[data-copied]::after {
+    @apply text-emerald-600 dark:text-emerald-400;
+    opacity: 1;
+    mask-image: var(--icon-check);
+}
+
+.copy-code[data-copied]::before {
+    content: attr(data-copied);
+    @apply pointer-events-none absolute bottom-full left-1/2 mb-1.5 -translate-x-1/2 rounded-md bg-zinc-900 px-2 py-1 font-sans text-xs whitespace-nowrap text-white shadow-md dark:bg-zinc-100 dark:text-zinc-900;
+    animation: tooltip-in 0.15s ease-out;
+}
+
+@keyframes tooltip-in {
+    from {
+        opacity: 0;
+    }
+}
+
+/*
+ * Sections rise in when scrolled into view; only with JavaScript (scripts/site.ts adds the
+ * classes).
+ * An animation, not a transition, so the hover transitions of the cards keep working.
+ */
+.js-reveal [data-reveal]:not(.revealed) {
+    opacity: 0;
+}
+
+.js-reveal [data-reveal].revealed {
+    animation: var(--animate-rise);
+    animation-delay: var(--reveal-delay, 0ms);
+}
+
+/* Docs and changelog: Markdown rendered by Astro, code blocks highlighted by Shiki (github-dark). */
+.doc {
+    @apply prose max-w-none prose-zinc dark:prose-invert prose-headings:scroll-mt-20 prose-headings:tracking-tight prose-a:text-emerald-700 prose-a:underline-offset-2 dark:prose-a:text-emerald-400 prose-code:before:content-none prose-code:after:content-none;
+}
+
+.doc :not(pre) > code {
+    @apply rounded-md bg-zinc-200/70 px-1.5 py-0.5 text-[0.85em] font-medium dark:bg-zinc-800;
+}
+
+.doc pre {
+    @apply relative rounded-xl text-[13px] leading-relaxed;
+}
+
+.doc table {
+    @apply block overflow-x-auto sm:table;
+}
+
+/* Copy button added to code blocks by scripts/site.ts. */
+.code-copy {
+    @apply absolute top-2 right-2 rounded-md bg-zinc-800 px-2 py-1 font-sans text-xs font-medium text-zinc-300 opacity-0 transition-opacity hover:bg-zinc-700 hover:text-white focus-visible:opacity-100;
+}
+
+.doc pre:hover .code-copy,
+.code-copy[data-copied] {
+    opacity: 1;
+}
+
+@media (hover: none) {
+    .code-copy {
+        opacity: 1;
+    }
+}
+
+/* Theme switch in the footer (scripts/site.ts). */
+.theme-switch button[aria-pressed="true"] {
+    @apply bg-white text-zinc-900 shadow-sm dark:bg-zinc-700 dark:text-zinc-100;
+}
